@@ -8,13 +8,20 @@ metadata:
 spec:
   strategy:
     canary:
+      analysis:
+        templates:
+        templateName: success-rate
+        startingStep: 2
+        args:
+        - name: service-name
+          value: demo-canary.default.svc.cluster.local
       steps:
       - setWeight: 20
       - pause:
           duration: "15s"
       - setWeight: 50
       - pause:
-          duration: "30s"
+          duration: "1m"
       - setWeight: 75
       - pause:
           duration: "30s"
