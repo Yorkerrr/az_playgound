@@ -1,75 +1,43 @@
----
 apiVersion: argoproj.io/v1alpha1
-kind: Rollout
+kind: Application
 metadata:
-  name: demo
-  labels:
-    app: demo
+  name: canary-test
+  namespace: argocd
 spec:
-  strategy:
-    canary:
-      steps:
-      - setWeight: 20
-      - pause:
-          duration: "1m"
-      - setWeight: 50
-      - pause:
-          duration: "2m"
-      canaryService: demo-canary
-      stableService: demo
-      trafficRouting:
-        istio:
-           virtualService: 
-            name: istio-vs
-            routes:
-            - primary 
-  replicas: 4
-  revisionHistoryLimit: 2
-  selector:
-    matchLabels:
-      app: demo
-      version: blue
-  template:
-    metadata:
-      labels:
-        app: demo
-        version: blue
-    spec:
-      containers:
-      - name: demo
-        image: argoproj/rollouts-demo:blue
-        imagePullPolicy: Always
-        ports:
-        - name: web
-          containerPort: 8080
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "100m"
-          limits:
-            memory: "128Mi"
-            cpu: "140m"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: demo
-spec:
-  ports:
-  - port: 80
-    targetPort: 8080
-  selector:
-    app: demo
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: demo-canary
-spec:
-  ports:
-  - port: 80
-    targetPort: 8080
-  selector:
-    app: demo
-  type: ClusterIP
+  project: default
+  source:
+    repoURL: https://github.com/Yorkerrr/az_playgound.git
+    targetRevision: HEAD
+    path: scenarios/canary/argocd/application
+    # directory
+    directory:
+      recurse: true
+
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: canary
+    
+  # # Sync policy
+  syncPolicy:
+    automated: {}
+  #   automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+  #     prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+  #     selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+  #   syncOptions:     # Sync options which modifies sync behavior
+  #   - Validate=false # disables resource validation (equivalent to 'kubectl apply --validate=true')
+  #   - CreateNamespace=true # Namespace Auto-Creation ensures that namespace specified as the application destination exists in the destination cluster.
+  #   # The retry feature is available since v1.7
+  #   retry:
+  #     limit: 5 # number of failed sync attempt retries; unlimited number of attempts if less than 0
+  #     backoff:
+  #       duration: 5s # the amount to back off. Default unit is seconds, but could also be a duration (e.g. "2m", "1h")
+  #       factor: 2 # a factor to multiply the base duration after each failed retry
+  #       maxDuration: 3m # the maximum amount of time allowed for the backoff strategy
+
+  # Ignore differences at the specified json pointers
+  ignoreDifferences:
+  - group: apps
+    kind: Deployment
+    jsonPointers:
+    - /spec/replicas
