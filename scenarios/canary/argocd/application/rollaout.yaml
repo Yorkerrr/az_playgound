@@ -10,11 +10,11 @@ spec:
     canary:
       analysis:
         templates:
-        templateName: success-rate
+         - templateName: success-rate
         startingStep: 2
         args:
         - name: service-name
-          value: demo-canary.default.svc.cluster.local
+          value: demo-canary.canary.svc.cluster.local
       steps:
       - setWeight: 20
       - pause:
@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: demo
-        image: argoproj/rollouts-demo:blue
+        image: argoproj/rollouts-demo:orange
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
