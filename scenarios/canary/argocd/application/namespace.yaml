@@ -4,3 +4,5 @@ metadata:
   name: canary
   annotations:
     istio-injection: enabled
+  labels:
+    istio-injection: enabled
