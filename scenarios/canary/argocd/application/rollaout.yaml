@@ -39,6 +39,9 @@ spec:
       - name: demo
         image: argoproj/rollouts-demo:blue
         imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: stable
         ports:
         - name: web
           containerPort: 8080
