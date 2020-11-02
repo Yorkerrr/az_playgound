@@ -48,7 +48,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-            name: canary
+            name: stable
         ports:
         - name: web
           containerPort: 8080
