@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloworld-primary
+  labels:
+    version: v1
+    app: helloworld-primary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      version: v1
+      app: helloworld-primary
+      common: common
+  template:
+    metadata:
+      labels:
+        app: helloworld-primary
+        version: v1
+        common: common
+    spec:
+      containers:
+      - name: helloworld-primary
+        image: docker.io/istio/examples-helloworld-v1
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent #Always
+        ports:
+        - containerPort: 5000

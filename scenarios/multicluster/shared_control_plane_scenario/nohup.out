@@ -1,0 +1,90 @@
+Forwarding from 127.0.0.1:8080 -> 20001
+Forwarding from [::1]:8080 -> 20001
+Forwarding from 127.0.0.1:8081 -> 20001
+Forwarding from [::1]:8081 -> 20001
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+E1028 21:32:52.552816   27783 portforward.go:400] an error occurred forwarding 8080 -> 20001: error forwarding port 20001 to pod 3d2d4d1a709f20a57320b19ff97a1eadc0f79d4251624725a5ebd1b7d847cfd5, uid : container not running (3d2d4d1a709f20a57320b19ff97a1eadc0f79d4251624725a5ebd1b7d847cfd5)
+E1028 21:32:52.553014   27783 portforward.go:400] an error occurred forwarding 8080 -> 20001: error forwarding port 20001 to pod 3d2d4d1a709f20a57320b19ff97a1eadc0f79d4251624725a5ebd1b7d847cfd5, uid : container not running (3d2d4d1a709f20a57320b19ff97a1eadc0f79d4251624725a5ebd1b7d847cfd5)
+E1028 21:32:52.555163   27783 portforward.go:400] an error occurred forwarding 8080 -> 20001: error forwarding port 20001 to pod 3d2d4d1a709f20a57320b19ff97a1eadc0f79d4251624725a5ebd1b7d847cfd5, uid : container not running (3d2d4d1a709f20a57320b19ff97a1eadc0f79d4251624725a5ebd1b7d847cfd5)
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8081
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+E1028 21:33:22.655815   27783 portforward.go:340] error creating error stream for port 8080 -> 20001: Timeout occured
+E1028 21:33:22.674685   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+E1028 21:33:22.675277   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+E1028 21:33:32.529023   27783 portforward.go:340] error creating error stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+E1028 21:33:32.537987   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+E1028 21:33:32.540096   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+E1028 21:33:59.345578   27784 portforward.go:400] an error occurred forwarding 8081 -> 20001: error forwarding port 20001 to pod ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64, uid : container not running (ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64)
+E1028 21:33:59.346418   27784 portforward.go:400] an error occurred forwarding 8081 -> 20001: error forwarding port 20001 to pod ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64, uid : container not running (ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64)
+E1028 21:33:59.346474   27784 portforward.go:400] an error occurred forwarding 8081 -> 20001: error forwarding port 20001 to pod ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64, uid : container not running (ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64)
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+E1028 21:34:02.479885   27783 portforward.go:340] error creating error stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+E1028 21:34:02.522802   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+E1028 21:34:02.522809   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+Handling connection for 8080
+E1028 21:34:02.543209   27783 portforward.go:340] error creating error stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+E1028 21:34:02.564909   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+E1028 21:34:02.570387   27783 portforward.go:362] error creating forwarding stream for port 8080 -> 20001: Timeout occured
+Handling connection for 8080
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+E1028 21:34:16.791975   27784 portforward.go:400] an error occurred forwarding 8081 -> 20001: error forwarding port 20001 to pod ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64, uid : container not running (ef34d724dd25f6bb7193670b8a8676c3126b69f8254577c8a90c7b5be9771e64)
+Handling connection for 8080
+Handling connection for 8080
+Forwarding from 127.0.0.1:8081 -> 20001
+Forwarding from [::1]:8081 -> 20001
+Forwarding from 127.0.0.1:8080 -> 20001
+Forwarding from [::1]:8080 -> 20001
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8081
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8080
+Handling connection for 8081
+Handling connection for 8081
+E1028 22:08:58.137923   28498 portforward.go:233] lost connection to pod
+E1028 22:08:58.648917   28499 portforward.go:233] lost connection to pod

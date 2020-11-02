@@ -1,0 +1,26 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-secondary-plane
+spec:
+  values:
+    global:
+      # The remote cluster's name and network name must match the values specified in the
+      # mesh network configuration of the primary cluster.
+      multiCluster:
+        clusterName: secondary
+      network: secondary_network
+
+      # Replace ISTIOD_REMOTE_EP with the the value of ISTIOD_REMOTE_EP set earlier.
+      remotePilotAddress: 52.155.33.183
+
+  # The istio-ingressgateway is not required in the remote cluster if both clusters are on
+  # the same network. To disable the istio-ingressgateway component, uncomment the lines below.
+  
+  components:
+   ingressGateways:
+   - name: istio-ingressgateway
+     enabled: false
+   - name: istio-secondary-ingressgateway
+     enabled: true
