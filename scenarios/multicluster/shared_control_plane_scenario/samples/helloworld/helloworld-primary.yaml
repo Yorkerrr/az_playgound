@@ -1,37 +1,38 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: helloworld-v2
+  name: helloworld-primary
   labels:
-    app: helloworld-v2
+    app: helloworld-primary
 spec:
   ports:
   - port: 5000
     name: http
   selector:
-    app: helloworld-v2
+    app: helloworld-primary
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: helloworld-v2
+  name: helloworld-primary
   labels:
-    version: v2
+    version: v1
+    app: helloworld-primary
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: helloworld-v2
-      version: v2
+      app: helloworld-primary
+      version: v1
   template:
     metadata:
       labels:
-        app: helloworld-v2
-        version: v2
+        app: helloworld-primary
+        version: v1
     spec:
       containers:
-      - name: helloworld-v2
-        image: docker.io/istio/examples-helloworld-v2
+      - name: helloworld-primary
+        image: docker.io/istio/examples-helloworld-v1
         resources:
           requests:
             cpu: "100m"

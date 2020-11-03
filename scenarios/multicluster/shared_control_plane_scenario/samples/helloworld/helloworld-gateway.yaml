@@ -16,7 +16,7 @@ spec:
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: helloworld-v2
+  name: helloworld-secondary
 spec:
   hosts:
   - "*"
@@ -28,17 +28,17 @@ spec:
         exact: /hello
     route:
     - destination:
-        host: helloworld-v2.sample.svc.cluster.local
+        host: helloworld-secondary.sample.svc.cluster.local
         port:
           number: 5000
 ---
 apiVersion: 'networking.istio.io/v1alpha3'
 kind: DestinationRule
 metadata:
-  name: helloworld-v2
+  name: helloworld-secondary
   namespace: sample
 spec:
-  host: helloworld-v2
+  host: helloworld-secondary
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL

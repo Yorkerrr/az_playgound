@@ -61,8 +61,8 @@ making the helloworld service ready for autoscaling.
 Enable autoscaling on both versions of the service:
 
 ```bash
-kubectl autoscale deployment helloworld-v1 --cpu-percent=50 --min=1 --max=10
-kubectl autoscale deployment helloworld-v2 --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment helloworld-primary --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment helloworld-secondary --cpu-percent=50 --min=1 --max=10
 kubectl get hpa
 ```
 
@@ -86,5 +86,5 @@ If the autoscaler is functioning correctly, the `REPLICAS` column should have a 
 ```bash
 kubectl delete -f helloworld.yaml
 kubectl delete -f helloworld-gateway.yaml
-kubectl delete hpa helloworld-v1 helloworld-v2
+kubectl delete hpa helloworld-primary helloworld-secondary
 ```
