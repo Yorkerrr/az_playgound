@@ -38,3 +38,7 @@ override.tf.json
 terraform.rc
 terraform/.creds
 terraform/creds.sh
+nohup.out
+**/nohup.out
+scenarios/multicluster/multi-primary_control_plane_scenario/nohup.out
+scenarios/multicluster/shared_control_plane_scenario/nohup.out

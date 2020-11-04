@@ -38,3 +38,4 @@ spec:
 EOF
 
 istioctl install -f istio-main-cluster.yaml --context=${MAIN_CLUSTER_CTX}
+kubectl apply -f mTLS.yaml -n istio-system --context ${MAIN_CLUSTER_CTX}

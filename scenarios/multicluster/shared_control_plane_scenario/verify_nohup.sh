@@ -1,7 +1,7 @@
 #!/bin/bash
 . utils.sh
 echo "Verify Primary cluster Sleep to Secondary cluster via ingress gw:"
-ISTIOD_REMOTE_EP=$(kubectl get svc -n istio-system --context=${REMOTE_CLUSTER_CTX} istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+ISTIOD_REMOTE_EP=$(kubectl get svc -n istio-system --context=${REMOTE_CLUSTER_CTX} istio-secondary-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
 nohup bash -c "while true; do echo 'Internal GW to helloworld-secondary'; curl -s curl http://${ISTIOD_REMOTE_EP}/hello; done" &
 
 echo "Verify Primary cluster Sleep to Secondary cluster via helloworld-secondary:5000/hello"

@@ -45,7 +45,7 @@ metadata:
   name: helloworld-secondary
   namespace: sample
 spec:
-  host: helloworld-secondary.svc.cluster.local
+  host: helloworld-secondary.sample.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
@@ -56,7 +56,7 @@ metadata:
   name: helloworld-primary
   namespace: sample
 spec:
-  host: helloworld-primary.svc.cluster.local
+  host: helloworld-primary.sample.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
@@ -67,7 +67,7 @@ metadata:
   name: helloworld
   namespace: sample
 spec:
-  host: helloworld.svc.cluster.local
+  host: helloworld.sample.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL

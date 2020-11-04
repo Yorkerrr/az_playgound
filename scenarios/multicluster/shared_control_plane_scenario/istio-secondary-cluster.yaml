@@ -13,7 +13,7 @@ spec:
       network: secondary_network
 
       # Replace ISTIOD_REMOTE_EP with the the value of ISTIOD_REMOTE_EP set earlier.
-      remotePilotAddress: 52.234.90.75
+      remotePilotAddress: 40.81.1.7
 
   # The istio-ingressgateway is not required in the remote cluster if both clusters are on
   # the same network. To disable the istio-ingressgateway component, uncomment the lines below.
