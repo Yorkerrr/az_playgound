@@ -44,7 +44,7 @@ spec:
     spec:
       containers:
       - name: demo
-        image: argoproj/rollouts-demo:orange
+        image: argoproj/rollouts-demo:blue
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
