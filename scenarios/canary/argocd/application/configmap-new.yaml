@@ -4,5 +4,5 @@ metadata:
   name: stable
   namespace: canary
 data: 
-  ENVVAR: val1
-  ENVVAR2: val2
+  ENVVAR: val122
+  ENVVAR2: val222
