@@ -3,4 +3,6 @@ kind: ConfigMap
 metadata:
   name: stable
   namespace: canary
-data: {}
+data: 
+  ENVVAR: val1
+  ENVVAR2: val2

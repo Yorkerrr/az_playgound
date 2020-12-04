@@ -1,0 +1,23 @@
+@startuml canary_base_akamai_failure
+
+-> Akamai
+autonumber "<b>[0]"
+Developer -> GIT : Create Deployment with canary version\nand DestinationRule representing stable and canary version subsets
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Deploy canary Deployment
+
+Akamai <- Developer : Update Akamai to forward 1% of requests to canary FQDN
+...Wait 10 minutes...
+Developer <- Prometheus : Check Canary metrics
+Developer -> Developer : Make decision to ramp up
+
+Akamai <- Developer : Update Akamai to forward 5% of requests to canary FQDN
+...Wait 10 minutes...
+Developer <- Prometheus : Check Canary metrics
+Developer -> Developer : Make decision to rollback
+Akamai <- Developer : Update Akamai to forward 100% of requests to stable FQDN
+
+Developer -> GIT : Delete canary Deployment
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Delete unused Deployment
+@enduml

@@ -1,0 +1,11 @@
+@startuml argocdcanary_no_istio
+autonumber "<b>[0]"
+Developer -> GIT : Make changes to current Deployment/Rollout
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Create canary ReplicaSet with number of pods 1 (sum 1)
+Argocd -> AKS : Waits for 10 minutes
+Argocd -> AKS : Adds 4 relplicas to canary ReplicaSet (sum 5)
+Argocd -> AKS : Waits for 10 minutes
+Argocd -> AKS : Update stable ReplicaSet to canary release version
+Argocd -> AKS : Tear down canary ReplicaSet
+@enduml

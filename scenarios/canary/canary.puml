@@ -1,0 +1,29 @@
+@startuml canary_base
+autonumber "<b>[0]"
+Developer -> GIT : Create Deployment with canary version\nand DestinationRule representing stable and canary version subsets
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Deploy canary Deployment
+
+Developer -> GIT : Update VirtualService to forward 1% of traffic to canary version
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Update VirtualService in AKS cluster
+...Wait 10 minutes...
+Developer <- Prometheus : Check Canary metrics
+Developer -> Developer : Make decision to ramp up
+
+Developer -> GIT : Update VirtualService to forward 5% of traffic to canary version
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Update VirtualService in AKS cluster
+Developer <- Prometheus : Check Canary metrics.
+Developer -> Developer : Make decision to ramp up
+
+...Wait 10 minutes...
+
+Developer -> GIT : Update VirtualService to forward 100% of traffic to canary version
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Update VirtualService in AKS cluster
+
+Developer -> GIT : Delete unused Deployment
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Delete unused Deployment
+@enduml

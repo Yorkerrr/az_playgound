@@ -1,0 +1,17 @@
+@startuml argocdcanary_success
+autonumber "<b>[0]"
+Developer -> GIT : Make changes to current Deployment/Rollout
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Create canary ReplicaSet
+Argocd -> AKS : Update VirtualService to forward 1% percent of traffic to created canary replica set
+Argocd -> AKS : Waits for 10 minutes
+Argocd -> AKS : Update VirtualService to forward 5% percent of traffic to created canary replica set
+Argocd -> AKS : Waits for 10 minutes timeout
+Argocd -> AKS : Create Analysis CR
+AKS -> AnalysisRun : Schedule Analysis Run
+AnalysisRun <- Prometeus : Fetch metrics configured in Analysis template
+AnalysisRun -> Argocd : Return Analisys result [Success]
+Argocd -> AKS : Update stable ReplicaSet to canary release version
+Argocd -> AKS : Update VirtualService to forward 100% percent of traffic to new stable replica set
+Argocd -> AKS : Tear down canary ReplicaSet
+@enduml

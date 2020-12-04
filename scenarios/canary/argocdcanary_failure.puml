@@ -1,0 +1,9 @@
+@startuml argocdcanary_failure
+autonumber "<b>[0]"
+Developer -> GIT : Make changes to current Deployment/Rollout
+GIT -> Argocd : Sync Git configuration
+Argocd -> AKS : Create canary ReplicaSet
+...no ready pods in canary Replica Set...
+...timeout reached...
+Argocd -> AKS : Tear down canary ReplicaSet
+@enduml
