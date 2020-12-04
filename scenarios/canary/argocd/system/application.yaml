@@ -11,7 +11,7 @@ spec:
     path: scenarios/canary/argocd/application
     # directory
     directory:
-      recurse: true
+      recurse: false
 
   # Destination cluster and namespace to deploy the application
   destination:
