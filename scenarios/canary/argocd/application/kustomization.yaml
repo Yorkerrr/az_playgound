@@ -7,7 +7,8 @@ resources:
 - ./gw.yaml
 - ./rollaout.yaml
 - ./namespace.yaml
-
+configurations:
+  - https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
 configMapGenerator:
 - name: stable
   files:
