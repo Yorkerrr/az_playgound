@@ -1,0 +1,14 @@
+commonLabels:
+  app: example
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ./analysis.yaml
+- ./gw.yaml
+- ./rollaout.yaml
+- ./namespace.yaml
+
+configMapGenerator:
+- name: stable
+  files:
+  - application.yaml=application.properties
