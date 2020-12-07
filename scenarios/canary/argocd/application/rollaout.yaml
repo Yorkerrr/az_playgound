@@ -74,6 +74,7 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
+    name: http-stable
   selector:
     app: demo
   type: ClusterIP
@@ -86,6 +87,7 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
+    name: http-canary
   selector:
     app: demo
     role: canary
