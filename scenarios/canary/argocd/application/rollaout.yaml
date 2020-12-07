@@ -8,6 +8,12 @@ metadata:
 spec:
   strategy:
     canary:
+      canaryMetadata:
+        labels:
+          role: canary
+      stableMetadata:
+        labels:
+          role: stable
       analysis:
         templates:
          - templateName: success-rate
@@ -82,4 +88,5 @@ spec:
     targetPort: 8080
   selector:
     app: demo
+    role: canary
   type: ClusterIP
