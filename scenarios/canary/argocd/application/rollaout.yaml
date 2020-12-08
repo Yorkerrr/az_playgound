@@ -23,21 +23,21 @@ spec:
   #       args:
   #       - name: service-name
   #         value: demo-canary.canary.svc.cluster.local
-      steps:
-      - setWeight: 20
-      - pause:
-          duration: "15s"
-      - setWeight: 50
-      - pause:
-          duration: "1m"
-      canaryService: demo-canary
-      stableService: demo
-      trafficRouting:
-        istio:
-           virtualService: 
-            name: istio-vs
-            routes:
-            - primary 
+      # steps:
+      # - setWeight: 20
+      # - pause:
+      #     duration: "15s"
+      # - setWeight: 50
+      # - pause:
+      #     duration: "1m"
+      # canaryService: demo-canary
+      # stableService: demo
+      # trafficRouting:
+      #   istio:
+      #      virtualService: 
+      #       name: istio-vs
+      #       routes:
+      #       - primary 
   replicas: 4
   revisionHistoryLimit: 2
   selector:
