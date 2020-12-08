@@ -1,28 +1,28 @@
 ---
-apiVersion: argoproj.io/v1alpha1
-kind: Rollout
-# apiVersion: apps/v1
-# kind: Deployment
+# apiVersion: argoproj.io/v1alpha1
+# kind: Rollout
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: demo
   labels:
     app: demo
 spec:
-  strategy:
-    canary:
-      canaryMetadata:
-        labels:
-          role: canary
-      stableMetadata:
-        labels:
-          role: stable
-      analysis:
-        templates:
-         - templateName: success-rate
-        startingStep: 2
-        args:
-        - name: service-name
-          value: demo-canary.canary.svc.cluster.local
+  # strategy:
+  #   canary:
+  #     canaryMetadata:
+  #       labels:
+  #         role: canary
+  #     stableMetadata:
+  #       labels:
+  #         role: stable
+  #     analysis:
+  #       templates:
+  #        - templateName: success-rate
+  #       startingStep: 2
+  #       args:
+  #       - name: service-name
+  #         value: demo-canary.canary.svc.cluster.local
       steps:
       - setWeight: 20
       - pause:
