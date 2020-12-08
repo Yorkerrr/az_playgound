@@ -1,0 +1,60 @@
+@startuml new
+rectangle VNetDevQA {
+
+
+rectangle "ServiceMesh PCI DEVQA" {
+interface "Azure\n   ILB" as AzureILBPCIQA
+rectangle "PCI Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiPCIDEVQA
+  usecase "Istiod" as IstiodPCIDEVQA
+  usecase "ServiceA" as ServiceAPCIDEVQA
+  usecase "ServiceD" as ServiceDPCIDEVQA
+  usecase "IngressGW" as IngressGWPCIDEVQA
+  usecase "IngressGWmTLS" as IngressGWmTlsPCIDEVQA
+  usecase "ServiceEntry\nServiceB.<namespace>.global" as ServiceEntryPCIDEVQA
+}
+}
+rectangle "Service Mesh Omnichannel DEVQA" {
+interface "Azure\n   ILB" as AzureILBDevQA
+rectangle "Omnichannel Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiOmnichannelDEVQA
+  usecase "Istiod" as IstiodOmnichannelDEVQA
+  usecase "ServiceB" as ServiceBOmnichannelDEVQA
+  usecase "ServiceC" as ServiceCOmnichannelDEVQA
+  usecase "IngressGW" as IngressGWOmnichannelDEVQA
+  usecase "IngressGWmTLS" as IngressGWmTlsOmnichannelDEVQA
+  usecase "ServiceEntry\nServiceA.<namespace>.global" as ServiceEntryOmnichannelDEVQA
+}
+}
+usecase "externalService"
+externalService -[#Orange]-> AzureILBDevQA
+externalService -[#Orange]-> AzureILBPCIQA
+AzureILBDevQA -[#Orange]-> IngressGWOmnichannelDEVQA
+IngressGWOmnichannelDEVQA -[#Orange]-> ServiceCOmnichannelDEVQA
+' ServiceAPCIDEVQA -[#Green;thickness=3]-> AzureILBDevQA
+ServiceAPCIDEVQA -[#Green;thickness=3]-> ServiceEntryPCIDEVQA
+' AzureILBDevQA -[#Green;thickness=3]-> IngressGWOmnichannelDEVQA
+ServiceEntryPCIDEVQA -[#Green;thickness=3]-> IngressGWmTlsOmnichannelDEVQA
+IngressGWmTlsOmnichannelDEVQA -[#Green;thickness=3]-> ServiceBOmnichannelDEVQA
+' ServiceBOmnichannelDEVQA -[#Blue;thickness=3]-> AzureILBPCIQA
+ServiceBOmnichannelDEVQA -[#Blue;thickness=3]-> ServiceEntryOmnichannelDEVQA
+' AzureILBPCIQA -[#Blue;thickness=3]-> IngressGWPCIDEVQA
+ServiceEntryOmnichannelDEVQA -[#Blue;thickness=3]-> IngressGWmTlsPCIDEVQA
+AzureILBPCIQA -[#Orange]-> IngressGWPCIDEVQA
+IngressGWmTlsPCIDEVQA -[#Blue;thickness=3]-> ServiceAPCIDEVQA
+IngressGWPCIDEVQA -[#Orange]-> ServiceDPCIDEVQA
+' ServiceCOmnichannelDEVQA --> ServiceBOmnichannelDEVQA
+' ServiceAPCIDEVQA --> ServiceDPCIDEVQA
+' ServiceDPCIDEVQA --> ServiceAPCIDEVQA
+IstiodPCIDEVQA ..> KubeapiPCIDEVQA
+IstiodOmnichannelDEVQA ..> KubeapiOmnichannelDEVQA
+IstiodPCIDEVQA <.. ServiceAPCIDEVQA
+IstiodPCIDEVQA <.. ServiceDPCIDEVQA
+IstiodPCIDEVQA <.. IngressGWPCIDEVQA
+IstiodPCIDEVQA <.. IngressGWmTlsPCIDEVQA
+IstiodOmnichannelDEVQA <.. ServiceBOmnichannelDEVQA
+IstiodOmnichannelDEVQA <.. ServiceCOmnichannelDEVQA
+IstiodOmnichannelDEVQA <.. IngressGWOmnichannelDEVQA
+IstiodOmnichannelDEVQA <.. IngressGWmTlsOmnichannelDEVQA
+}
+@enduml

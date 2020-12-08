@@ -1,0 +1,49 @@
+@startuml new
+rectangle VNetDevQA {
+interface "Azure\n   ILB" as AzureILBDevQA
+interface "Azure\n   ILB" as AzureILBPCIQA
+rectangle "ServiceMesh PCI DEVQA" {
+rectangle "PCI Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiPCIDEVQA
+  usecase "Istiod" as IstiodPCIDEVQA
+  usecase "ServiceA" as ServiceAPCIDEVQA
+  usecase "ServiceD" as ServiceDPCIDEVQA
+  usecase "IngressGW" as IngressGWPCIDEVQA
+}
+}
+rectangle "Service Mesh Omnichannel DEVQA" {
+rectangle "Omnichannel Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiOmnichannelDEVQA
+  usecase "Istiod" as IstiodOmnichannelDEVQA
+  usecase "ServiceB" as ServiceBOmnichannelDEVQA
+  usecase "ServiceC" as ServiceCOmnichannelDEVQA
+  usecase "IngressGW" as IngressGWOmnichannelDEVQA
+}
+}
+usecase "externalService"
+externalService -[#Orange]-> AzureILBDevQA
+externalService -[#Orange]-> AzureILBPCIQA
+AzureILBDevQA -[#Orange]-> IngressGWOmnichannelDEVQA
+IngressGWOmnichannelDEVQA -[#Orange]-> ServiceCOmnichannelDEVQA
+ServiceAPCIDEVQA -[#Green;thickness=3]-> AzureILBDevQA
+AzureILBDevQA -[#Green;thickness=3]-> IngressGWOmnichannelDEVQA
+IngressGWOmnichannelDEVQA -[#Green;thickness=3]-> ServiceBOmnichannelDEVQA
+ServiceBOmnichannelDEVQA -[#Blue;thickness=3]-> AzureILBPCIQA
+AzureILBPCIQA -[#Blue;thickness=3]-> IngressGWPCIDEVQA
+AzureILBPCIQA -[#Orange]-> IngressGWPCIDEVQA
+IngressGWPCIDEVQA -[#Blue;thickness=3]-> ServiceAPCIDEVQA
+IngressGWPCIDEVQA -[#Orange]-> ServiceDPCIDEVQA
+ServiceCOmnichannelDEVQA --> ServiceBOmnichannelDEVQA
+ServiceBOmnichannelDEVQA --> ServiceCOmnichannelDEVQA
+ServiceAPCIDEVQA --> ServiceDPCIDEVQA
+ServiceDPCIDEVQA --> ServiceAPCIDEVQA
+IstiodPCIDEVQA ..> KubeapiPCIDEVQA
+IstiodOmnichannelDEVQA ..> KubeapiOmnichannelDEVQA
+IstiodPCIDEVQA <.. ServiceAPCIDEVQA
+IstiodPCIDEVQA <.. ServiceDPCIDEVQA
+IstiodPCIDEVQA <.. IngressGWPCIDEVQA
+IstiodOmnichannelDEVQA <.. ServiceBOmnichannelDEVQA
+IstiodOmnichannelDEVQA <.. ServiceCOmnichannelDEVQA
+IstiodOmnichannelDEVQA <.. IngressGWOmnichannelDEVQA
+}
+@enduml

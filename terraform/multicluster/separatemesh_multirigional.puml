@@ -1,0 +1,53 @@
+@startuml multiregional
+interface "Cross-Region LB" as AzureLB_CROSSREGION
+rectangle VNetWEST {
+interface "Azure\n   LB" as AzureILB_WEST
+rectangle "WEST Omnichannel ServiceMesh" {
+rectangle "WEST Omnichannel Cluster" {
+  usecase "KubeApi" as Kubeapi_Omnichannel_WEST
+  usecase "Istiod" as Istiod_Omnichannel_WEST
+  usecase "ServiceB" as ServiceB_Omnichannel_WEST
+  usecase "ServiceA" as ServiceA_Omnichannel_WEST
+  usecase "IngressGW" as IngressGW_Omnichannel_WEST
+}
+}
+}
+rectangle VNetEAST {
+interface "Azure\n   LB" as AzureILB_EAST
+rectangle "EAST Omnichannel Mesh" {
+rectangle "EAST Omnichannel Cluster" {
+  usecase "KubeApi" as Kubeapi_Omnichannel_EAST
+  usecase "Istiod" as Istiod_Omnichannel_EAST
+  usecase "ServiceB" as ServiceB_Omnichannel_EAST
+  usecase "ServiceA" as ServiceA_Omnichannel_EAST
+  usecase "IngressGW" as IngressGW_Omnichannel_EAST
+}
+}
+}
+usecase "Client"
+Client -[#Orange;thickness=3]-> AzureLB_CROSSREGION
+AzureLB_CROSSREGION -[#Orange;thickness=3]-> AzureILB_EAST
+AzureLB_CROSSREGION -[#Orange;thickness=3]-> AzureILB_WEST
+AzureILB_EAST -[#Orange;thickness=3]left-> IngressGW_Omnichannel_EAST
+IngressGW_Omnichannel_EAST -[#Orange;thickness=3]-> ServiceA_Omnichannel_EAST
+' ServiceB_Omnichannel_WEST -[#Green;thickness=3]-> AzureILB_EAST
+' AzureILB_EAST -[#Green;thickness=3]-> IngressGW_Omnichannel_EAST
+' IngressGW_Omnichannel_EAST -[ßGreen;thickness=3]-> ServiceB_Omnichannel_EAST
+' ServiceB_Omnichannel_EAST -[#Blue;thickness=3]-> AzureILB_WEST
+' AzureILB_WEST -[#Blue;thickness=3]-> IngressGW_Omnichannel_WEST
+AzureILB_WEST -[#Orange;thickness=3]right-> IngressGW_Omnichannel_WEST
+' IngressGW_Omnichannel_WEST -[#Blue;thickness=3]-> ServiceB_Omnichannel_WEST
+IngressGW_Omnichannel_WEST -[#Orange;thickness=3]-> ServiceA_Omnichannel_WEST
+ServiceA_Omnichannel_EAST --> ServiceB_Omnichannel_EAST
+ServiceB_Omnichannel_EAST --> ServiceA_Omnichannel_EAST
+ServiceB_Omnichannel_WEST --> ServiceA_Omnichannel_WEST
+ServiceA_Omnichannel_WEST --> ServiceB_Omnichannel_WEST
+Istiod_Omnichannel_WEST ..> Kubeapi_Omnichannel_WEST
+Istiod_Omnichannel_EAST ..> Kubeapi_Omnichannel_EAST
+Istiod_Omnichannel_WEST <.. ServiceB_Omnichannel_WEST
+Istiod_Omnichannel_WEST <.. ServiceA_Omnichannel_WEST
+Istiod_Omnichannel_WEST <.. IngressGW_Omnichannel_WEST
+Istiod_Omnichannel_EAST <.. ServiceB_Omnichannel_EAST
+Istiod_Omnichannel_EAST <.. ServiceA_Omnichannel_EAST
+Istiod_Omnichannel_EAST <.. IngressGW_Omnichannel_EAST
+@enduml

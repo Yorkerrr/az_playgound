@@ -1,0 +1,50 @@
+@startuml primary-remote
+rectangle VNetDevQA {
+usecase "externalService"
+rectangle "ServiceMesh PCI DEVQA" {
+rectangle "Platform DEVQA" {
+  usecase "KubeApi" as KubeapiPLATFORMDEVQA
+  usecase "Istiod" as IstiodPLATFORMDEVQA
+}
+interface AzureILB as AzureILBDevQA
+interface AzureILB as AzureILBPCIDevQA
+rectangle "PCI Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiPCIDEVQA
+  ' usecase "Istiod" as IstiodPCIDEVQA
+  usecase "ServiceA" as ServiceAPCIDEVQA
+  usecase "ServiceD" as ServiceDPCIDEVQA
+  usecase "IngressGW" as IngressGWPCIDEVQA
+}
+rectangle "Common Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiCommonDEVQA
+  ' usecase "Istiod" as IstiodCommonDEVQA
+  usecase "ServiceB" as ServiceBCommonDEVQA
+  usecase "ServiceC" as ServiceCCommonDEVQA
+  usecase "IngressGW" as IngressGWCommonDEVQA
+}
+'External Service to Service C'
+externalService -[#Orange]-> AzureILBDevQA
+AzureILBDevQA -[#Orange]-> IngressGWCommonDEVQA
+IngressGWCommonDEVQA -[#Orange]-> ServiceCCommonDEVQA
+'External Service to Service D'
+externalService -[#Orange]-> AzureILBPCIDevQA
+AzureILBPCIDevQA -[#Orange]-> IngressGWPCIDEVQA
+IngressGWPCIDEVQA -[#Orange]-> ServiceDPCIDEVQA
+
+
+ServiceAPCIDEVQA -[#Green]-> ServiceBCommonDEVQA
+ServiceBCommonDEVQA -[#Blue]-> ServiceAPCIDEVQA
+ServiceBCommonDEVQA --> ServiceCCommonDEVQA
+ServiceCCommonDEVQA --> ServiceBCommonDEVQA
+ServiceAPCIDEVQA --> ServiceDPCIDEVQA
+ServiceDPCIDEVQA --> ServiceAPCIDEVQA
+IstiodPLATFORMDEVQA ..> KubeapiPCIDEVQA
+IstiodPLATFORMDEVQA ..> KubeapiCommonDEVQA
+IstiodPLATFORMDEVQA <.. ServiceAPCIDEVQA
+IstiodPLATFORMDEVQA <.. IngressGWPCIDEVQA
+IstiodPLATFORMDEVQA <.. KubeapiPLATFORMDEVQA
+IstiodPLATFORMDEVQA <.. ServiceBCommonDEVQA
+IstiodPLATFORMDEVQA <.. IngressGWCommonDEVQA
+}
+}
+@enduml

@@ -1,0 +1,86 @@
+@startuml full
+rectangle VNetDevQA {
+rectangle "ServiceMesh PCI DEVQA" {
+rectangle "PCI Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiPCIDEVQA
+  usecase "Istiod" as IstiodPCIDEVQA
+  usecase "ServiceA" as ServiceAPCIDEVQA
+  usecase "IngressGW" as IngressGWPCIDEVQA
+}
+}
+rectangle "Service Mesh Common DEVQA" {
+rectangle "Common Cluster DEVQA" {
+  usecase "KubeApi" as KubeapiCommonDEVQA
+  usecase "Istiod" as IstiodCommonDEVQA
+  usecase "ServiceB" as ServiceBCommonDEVQA
+  usecase "IngressGW" as IngressGWCommonDEVQA
+}
+}
+ServiceAPCIDEVQA -[#Green]-> IngressGWCommonDEVQA
+ServiceBCommonDEVQA --> IngressGWPCIDEVQA
+IngressGWPCIDEVQA --> ServiceAPCIDEVQA
+IngressGWCommonDEVQA -[#Green]-> ServiceBCommonDEVQA
+IstiodPCIDEVQA ..> KubeapiPCIDEVQA
+IstiodCommonDEVQA ..> KubeapiCommonDEVQA
+IstiodPCIDEVQA <.. ServiceAPCIDEVQA
+IstiodPCIDEVQA <.. IngressGWPCIDEVQA
+IstiodCommonDEVQA <.. ServiceBCommonDEVQA
+IstiodCommonDEVQA <.. IngressGWCommonDEVQA
+}
+rectangle VNetPERF {
+rectangle "ServiceMesh PCI PERF" {
+rectangle "PCI Cluster PERF" {
+  usecase "KubeApi" as KubeapiPCIPERF
+  usecase "Istiod" as IstiodPCIPERF
+  usecase "ServiceA" as ServiceAPCIPERF
+  usecase "IngressGW" as IngressGWPCIPERF
+}
+}
+rectangle "Service Mesh Common PERF" {
+rectangle "Common Cluster PERF" {
+  usecase "KubeApi" as KubeapiCommonPERF
+  usecase "Istiod" as IstiodCommonPERF
+  usecase "ServiceB" as ServiceBCommonPERF
+  usecase "IngressGW" as IngressGWCommonPERF
+}
+}
+ServiceAPCIPERF --> IngressGWCommonPERF
+ServiceBCommonPERF --> IngressGWPCIPERF
+IngressGWPCIPERF --> ServiceAPCIPERF
+IngressGWCommonPERF --> ServiceBCommonPERF
+IstiodPCIPERF ..> KubeapiPCIPERF
+IstiodCommonPERF ..> KubeapiCommonPERF
+IstiodPCIPERF <.. ServiceAPCIPERF
+IstiodPCIPERF <.. IngressGWPCIPERF
+IstiodCommonPERF <.. ServiceBCommonPERF
+IstiodCommonPERF <.. IngressGWCommonPERF
+}
+rectangle VNetPROD {
+rectangle "ServiceMesh PCI PROD" {
+rectangle "PCI Cluster PROD" {
+  usecase "KubeApi" as KubeapiPCIPROD
+  usecase "Istiod" as IstiodPCIPROD
+  usecase "ServiceA" as ServiceAPCIPROD
+  usecase "IngressGW" as IngressGWPCIPROD
+}
+}
+rectangle "Service Mesh Common PROD" {
+rectangle "Common Cluster PROD" {
+  usecase "KubeApi" as KubeapiCommonPROD
+  usecase "Istiod" as IstiodCommonPROD
+  usecase "ServiceB" as ServiceBCommonPROD
+  usecase "IngressGW" as IngressGWCommonPROD
+}
+}
+ServiceAPCIPROD --> IngressGWCommonPROD
+ServiceBCommonPROD --> IngressGWPCIPROD
+IngressGWPCIPROD --> ServiceAPCIPROD
+IngressGWCommonPROD --> ServiceBCommonPROD
+IstiodPCIPROD ..> KubeapiPCIPROD
+IstiodCommonPROD ..> KubeapiCommonPROD
+IstiodPCIPROD <.. ServiceAPCIPROD
+IstiodPCIPROD <.. IngressGWPCIPROD
+IstiodCommonPROD <.. ServiceBCommonPROD
+IstiodCommonPROD <.. IngressGWCommonPROD
+}
+@enduml
