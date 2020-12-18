@@ -11,6 +11,5 @@ configurations:
   - https://argoproj.github.io/argo-rollouts/features/kustomize/rollout-transform.yaml
 configMapGenerator:
 - name: stable
-  behavior: merge
   files:
   - application.yaml
